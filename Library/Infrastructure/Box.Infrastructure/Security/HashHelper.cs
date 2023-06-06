@@ -17,7 +17,7 @@ namespace Box.Infrastructure.Security
 			return passwordHash;
         }
 
-        public static bool GetPasswordHash(string password, string passwordHash)
+        public static bool VerfiyPassword(string password, string passwordHash)
         {
             var verify
                 = BCrypt.Net.BCrypt.Verify(password,passwordHash);
@@ -28,16 +28,9 @@ namespace Box.Infrastructure.Security
         {
             List<Claim> claims = new List<Claim> {
                 new Claim(ClaimTypes.Name, username)};
-            var credentials = CreateCredential(key);
+            var credentials = CredentialHelper.CreateCredential(key);
             var jwt = CreateTokenWithCredential(claims, credentials);
             return jwt;
-        }
-
-        private static SigningCredentials CreateCredential(string key)
-        {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha512Signature);
-            return credentials;
         }
 
         private static string CreateTokenWithCredential(List<Claim> claims, SigningCredentials credentials)

@@ -1,10 +1,10 @@
 ﻿using Box.Application.Services;
 using Box.Contract.Interfaces.Services;
 using Box.Data.EntityFramework;
+using Box.Data.Repository.EFRepository;
+using Box.Data.Repository.Interfaces;
 using Box.Domain.Args;
 using Box.Domain.Entities;
-using Box.Repository.EntityFramework;
-using Box.Repository.Interface;
 using Moq;
 using Moq.EntityFrameworkCore;
 

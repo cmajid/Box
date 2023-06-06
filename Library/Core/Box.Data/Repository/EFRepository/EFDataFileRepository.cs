@@ -1,11 +1,10 @@
-﻿using System;
-using Box.Data.EntityFramework;
+﻿using Box.Data.EntityFramework;
+using Box.Data.Repository.Interfaces;
 using Box.Domain.Entities;
-using Box.Repository.Interface;
 
-namespace Box.Repository.EntityFramework
+namespace Box.Data.Repository.EFRepository
 {
-	public class EFDataFileRepository: DataFileRepository
+    public class EFDataFileRepository: DataFileRepository
     {
         private readonly ApplicationDbContext context;
         public EFDataFileRepository(ApplicationDbContext context)

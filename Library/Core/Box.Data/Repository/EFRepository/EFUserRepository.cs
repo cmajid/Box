@@ -13,11 +13,10 @@ namespace Box.Data.Repository.EFRepository
             this.context = context;
         }
 
-        public User? GetByUsernamePassword(User user)
+        public User? GetUserByUsername(string user)
         {
             var fetchedUser = context.User.FirstOrDefault(t =>
-                    t.Username == user.Username &&
-                    t.PasswordHash == user.PasswordHash);
+                    t.Username == user);
 
             return fetchedUser;
         }

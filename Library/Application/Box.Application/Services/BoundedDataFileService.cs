@@ -1,7 +1,6 @@
-﻿using System;
-using Box.Contract.Interfaces.Services;
+﻿using Box.Contract.Interfaces.Services;
+using Box.Data.Repository.Interfaces;
 using Box.Domain.Entities;
-using Box.Repository.Interface;
 
 namespace Box.Application.Services
 {

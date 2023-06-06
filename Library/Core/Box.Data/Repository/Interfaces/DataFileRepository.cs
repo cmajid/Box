@@ -1,7 +1,7 @@
 ﻿using System;
 using Box.Domain.Entities;
 
-namespace Box.Repository.Interface
+namespace Box.Data.Repository.Interfaces
 {
 	public interface DataFileRepository
 	{

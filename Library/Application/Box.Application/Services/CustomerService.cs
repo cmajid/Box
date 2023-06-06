@@ -1,6 +1,7 @@
 ﻿using Box.Contract.Interfaces.Services;
 using Box.Data.Repository.Interfaces;
 using Box.Domain.Entities;
+using Box.Infrastructure.Security;
 
 namespace Box.Application.Services
 {
@@ -18,11 +19,26 @@ namespace Box.Application.Services
             repository.Save(user);
         }
 
-        public void VerifyUser(User user)
+        public User VerifyUser(string username, string password)
         {
-            var fetchedUser = repository.GetByUsernamePassword(user);
-            if (fetchedUser == null)
-                throw new UserNotFoundException(user.Username);
+            var user = GetUserByUsername(username);
+            VerifyPassword(username, password, user);
+            return user;
+        }
+
+        private static void VerifyPassword(string username, string password, User user)
+        {
+            var verifyPassword = HashHelper.VerfiyPassword(password, user.PasswordHash);
+            if (!verifyPassword)
+                throw new UsernameOrPasswordNotFoundException(username);
+        }
+
+        private User GetUserByUsername(string username)
+        {
+            var user = repository.GetUserByUsername(username);
+            if (user == null)
+                throw new UsernameOrPasswordNotFoundException(username);
+            return user;
         }
 
         private void checkRepeatedUsername(string username)
@@ -50,6 +66,15 @@ namespace Box.Application.Services
 
             public UserNotFoundException(string name)
                 : base(String.Format("User not found: {0}", name)) { }
+        }
+
+        [Serializable]
+        public class UsernameOrPasswordNotFoundException : Exception
+        {
+            public UsernameOrPasswordNotFoundException() { }
+
+            public UsernameOrPasswordNotFoundException(string name)
+                : base(String.Format("Username or Password not found: {0}", name)) { }
         }
     }
 }

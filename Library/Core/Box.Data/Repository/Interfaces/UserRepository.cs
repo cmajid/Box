@@ -5,8 +5,8 @@ namespace Box.Data.Repository.Interfaces
 {
 	public interface UserRepository
 	{
-        User? GetByUsernamePassword(User user);
         bool CheckRepeatedUsername(string username);
+        User? GetUserByUsername(string user);
         void Save(User user);
     }
 }

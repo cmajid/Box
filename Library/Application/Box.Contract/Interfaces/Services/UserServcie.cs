@@ -6,7 +6,7 @@ namespace Box.Contract.Interfaces.Services
 	public interface UserService
 	{
         void Register(User user);
-        void VerifyUser(User user);
+        User VerifyUser(string username, string password);
     }
 }
 
