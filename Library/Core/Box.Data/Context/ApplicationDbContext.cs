@@ -7,6 +7,7 @@ namespace Box.Data.EntityFramework
     public class ApplicationDbContext : DbContext
     {
         public virtual DbSet<DataFile> DataFile { get; set; }
+        public virtual DbSet<Download> Download { get; set; }
 
         public ApplicationDbContext()
         {

@@ -23,6 +23,18 @@ namespace Box.Data.EntityFramework
                 builder.HasIndex(p => p.SystemName).IsUnique();
             }
         }
+
+        public class DownloadMappingConfiguration : BaseEntityConfiguration<Download>
+        {
+            public override void Configure(EntityTypeBuilder<Download> builder)
+            {
+                base.Configure(builder);
+
+                builder.Property(p => p.FileId).IsRequired();
+                builder.Property(p => p.CreateDateTime).HasColumnType(SqlDbType.DateTime.ToString()).IsRequired();
+                builder.HasIndex(p => p.FileId);
+            }
+        }
     }
 }
 
