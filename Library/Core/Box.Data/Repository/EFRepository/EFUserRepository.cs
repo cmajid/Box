@@ -13,11 +13,27 @@ namespace Box.Data.Repository.EFRepository
             this.context = context;
         }
 
+        public User? GetByUsernamePassword(User user)
+        {
+            var fetchedUser = context.User.FirstOrDefault(t =>
+                    t.Username == user.Username &&
+                    t.PasswordHash == user.PasswordHash);
+
+            return fetchedUser;
+        }
+
         public void Save(User user)
         {
             context.User.Add(user);
             context.SaveChanges();
         }
+
+        public bool CheckRepeatedUsername(string username)
+        {
+            var repeated = context.User.Any(t => t.Username == username);
+            return repeated;
+        }
+        
     }
 }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using Box.API.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Box.API.Controllers
@@ -8,6 +9,7 @@ namespace Box.API.Controllers
 
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class StorageController : ControllerBase
     {
         [HttpPost]

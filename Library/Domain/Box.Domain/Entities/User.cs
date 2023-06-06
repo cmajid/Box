@@ -2,14 +2,14 @@
 
 namespace Box.Domain.Entities
 {
-    public class User: BaseEntity
+    public class User : BaseEntity
     {
         protected User() { }
         private User(UserArgs args)
         {
             Username = args.Username;
             PasswordHash = args.PasswordHash;
-            Id = args.Id;
+            Id = args.Id ?? 0;
         }
 
         public int Id { get; private set; }

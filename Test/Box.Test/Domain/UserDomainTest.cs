@@ -15,7 +15,7 @@ namespace Box.Test.Domain
 			userId = 1;
 			username = "username1";
 			passwordHash = "XYZ";
-			user = User.Create(new UserArgs(userId, username, passwordHash));
+			user = User.Create(new UserArgs(username, passwordHash, userId));
 		}
 
 		[Fact]

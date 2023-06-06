@@ -1,11 +1,13 @@
 ﻿using System;
 using Box.Contract.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Box.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class DataFileController : ControllerBase
     {
         [HttpPost]

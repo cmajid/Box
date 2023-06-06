@@ -5,7 +5,8 @@ namespace Box.Contract.Interfaces.Services
 {
 	public interface UserService
 	{
-        void Save(User file);
+        void Register(User user);
+        void VerifyUser(User user);
     }
 }
 

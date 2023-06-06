@@ -12,9 +12,44 @@ namespace Box.Application.Services
             this.repository = repository;
         }
 
-        public void Save(User user)
+        public void Register(User user)
         {
+            checkRepeatedUsername(user.Username);
             repository.Save(user);
+        }
+
+        public void VerifyUser(User user)
+        {
+            var fetchedUser = repository.GetByUsernamePassword(user);
+            if (fetchedUser == null)
+                throw new UserNotFoundException(user.Username);
+        }
+
+        private void checkRepeatedUsername(string username)
+        {
+            var usernameIsRepeated = repository.CheckRepeatedUsername(username);
+            if (usernameIsRepeated)
+            {
+                throw new UsernameRepeatedException(username);
+            }
+        }
+
+        [Serializable]
+        public class UsernameRepeatedException : Exception
+        {
+            public UsernameRepeatedException() { }
+
+            public UsernameRepeatedException(string name)
+                : base(String.Format("Username is repeated: {0}", name)) { }
+        }
+
+        [Serializable]
+        public class UserNotFoundException : Exception
+        {
+            public UserNotFoundException() { }
+
+            public UserNotFoundException(string name)
+                : base(String.Format("User not found: {0}", name)) { }
         }
     }
 }
