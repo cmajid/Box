@@ -12,4 +12,3 @@ namespace Box.API.Models
 		public List<string> Messages { get; set; }
     }
 }
-

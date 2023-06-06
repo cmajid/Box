@@ -8,8 +8,12 @@
 
   <ItemGroup>
     <None Remove="Exception\" />
+    <None Remove="Security\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Exception\" />
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Security\" />
   </ItemGroup>
 </Project>

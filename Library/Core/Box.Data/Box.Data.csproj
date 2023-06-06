@@ -8,13 +8,11 @@
 
   <ItemGroup>
     <None Remove="Repository\" />
-    <None Remove="Repository\EF\" />
     <None Remove="Repository\Interfaces\" />
     <None Remove="Context\EFConfiguration\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Repository\" />
-    <Folder Include="Repository\EF\" />
     <Folder Include="Repository\Interfaces\" />
     <Folder Include="Context\EFConfiguration\" />
   </ItemGroup>

@@ -8,6 +8,7 @@ namespace Box.Data.EntityFramework
     {
         public virtual DbSet<DataFile> DataFile { get; set; }
         public virtual DbSet<Download> Download { get; set; }
+        public virtual DbSet<User> User { get; set; }
 
         public ApplicationDbContext()
         {
@@ -21,7 +22,7 @@ namespace Box.Data.EntityFramework
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            options.UseSqlServer("Data Source=localhost;Initial Catalog=BoxDb;User Id=sa;Password=SA_PASSWORD;Max Pool Size=400;Encrypt=false;");
+            options.UseSqlServer("Data Source=localhost;Initial Catalog=BoxDb;User Id=sa;Password=#123ASDasdP;Max Pool Size=400;Encrypt=false;");
             options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
             base.OnConfiguring(options);
         }

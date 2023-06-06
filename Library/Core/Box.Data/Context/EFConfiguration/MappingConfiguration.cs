@@ -35,6 +35,18 @@ namespace Box.Data.EntityFramework
                 builder.HasIndex(p => p.FileId);
             }
         }
+
+        public class UserMappingConfiguration : BaseEntityConfiguration<User>
+        {
+            public override void Configure(EntityTypeBuilder<User> builder)
+            {
+                base.Configure(builder);
+
+                builder.Property(p => p.Username).IsRequired().HasMaxLength(64);
+                builder.Property(p => p.PasswordHash).IsRequired().HasMaxLength(64);
+                builder.HasIndex(p => p.Username).IsUnique();
+            }
+        }
     }
 }
 

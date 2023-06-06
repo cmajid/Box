@@ -1,7 +1,7 @@
 ﻿using Box.Domain.Args;
 using Box.Domain.Entities;
 
-namespace Box.Test.Doamin;
+namespace Box.Test.Domain;
 
 public class DataFileDoaminTest
 {
