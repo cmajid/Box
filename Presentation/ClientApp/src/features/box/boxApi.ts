@@ -6,7 +6,7 @@ import { RootState } from "../../store";
 export interface DataFile {
     id: number;
     userId: number;
-    userName: string;
+    username: string;
     extention: string;
     isDeleted: boolean;
     size: number;

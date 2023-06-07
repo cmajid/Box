@@ -1,12 +1,15 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import { AppStorage } from "../../assets/utilities/storage";
+import { useDispatch } from "react-redux";
+import { boxApi } from "../../features/box/boxApi";
 
 const Layout = ()=>{
-
     const navigator = useNavigate();
+    const dispatch = useDispatch();
     const logout = ()=>{
         AppStorage.Provider.clear();
+        dispatch(boxApi.util.resetApiState());
         navigator("/login");
     }
     return (
