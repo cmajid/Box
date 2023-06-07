@@ -12,6 +12,7 @@ namespace Box.Contract.DTOs
         public DateTime CreatedDatetime { get; set; }
         public DateTime UpdatedDateTime { get; set; }
         public DateTime PublicDownloadDateTime { get; set; }
+        public string Username { get; set; }
     }
 }
 

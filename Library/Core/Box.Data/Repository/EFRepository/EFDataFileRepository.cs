@@ -2,6 +2,7 @@
 using Box.Data.EntityFramework;
 using Box.Data.Repository.Interfaces;
 using Box.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Box.Data.Repository.EFRepository
 {
@@ -19,20 +20,27 @@ namespace Box.Data.Repository.EFRepository
             context.SaveChanges();
         }
 
-        public void Delete(int id)
+        public void Delete(DataFile file)
         {
-            throw new NotImplementedException();
-        }
-
-
-        public void Update(DataFile file)
-        {
-            throw new NotImplementedException();
+            file.Delete();
+            context.Entry(file).State = EntityState.Modified;
+            context.SaveChanges();
         }
 
         public List<DataFile> GetAll(int userId)
         {
             return context.DataFile.Where(t => !t.IsDeleted && t.UserId == userId).ToList();
+        }
+
+        public DataFile? GetBySystemName(string systemName)
+        {
+            return context.DataFile.Where(t => !t.IsDeleted && t.SystemName == systemName).FirstOrDefault();
+
+        }
+
+        public DataFile? GetById(int id)
+        {
+            return context.DataFile.Where(t => !t.IsDeleted && t.Id == id).FirstOrDefault();
         }
     }
 }

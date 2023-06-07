@@ -13,7 +13,7 @@ namespace Box.Data.EntityFramework
             public override void Configure(EntityTypeBuilder<DataFile> builder)
             {
                 base.Configure(builder);
-
+                builder.HasKey(p => p.Id);
                 builder.Property(p => p.Extention).HasMaxLength(10);
                 builder.Property(p => p.SystemName).IsRequired().HasMaxLength(64);
                 builder.Property(p => p.CreatedDatetime).HasColumnType(SqlDbType.DateTime.ToString()).IsRequired();

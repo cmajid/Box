@@ -10,6 +10,7 @@ namespace Box.Contract.Interfaces.Services
         void Delete(int id);
         void Rename(DataFile file, string newName);
         List<DataFileDTO> GetAll(int userId);
+        DataFile DownloadFile(string username, string systemName);
     }
 }
 

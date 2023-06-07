@@ -14,10 +14,10 @@ namespace Box.API.Controllers
             this.httpContextAccessor = httpContextAccessor;
         }
 
-        protected int GetUserId() => int.Parse(httpContextAccessor.HttpContext!.User
+        protected int GetCurrentUser_UserId() => int.Parse(httpContextAccessor.HttpContext!.User
         .FindFirstValue(ClaimTypes.NameIdentifier)!);
 
-        protected string GetUsername() => httpContextAccessor.HttpContext!.User
+        protected string GetCurrentUser_Username() => httpContextAccessor.HttpContext!.User
             .FindFirstValue(ClaimTypes.Name)!;
 	}
 }

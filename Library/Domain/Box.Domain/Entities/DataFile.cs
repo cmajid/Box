@@ -12,7 +12,7 @@ namespace Box.Domain.Entities
         public string UserName { get; private set; }
 
         public string Extention { get; private set; }
-        public bool IsDeleted { get; private set; }
+        public bool IsDeleted { get;  set; }
         public string Size { get; private set; }
         public string Name { get; private set; }
         public string SystemName { get; private set; }
@@ -35,6 +35,7 @@ namespace Box.Domain.Entities
             if (args.Name.Any(f => Path.GetInvalidFileNameChars().Contains(f)))
                 throw new InvalidFileNameException(args.Name);
 
+            UserId = args.UserId;
             Name = args.Name;
             Extention = Path.GetExtension(args.Name);
             CreatedDatetime = DateTime.Now;
@@ -42,12 +43,10 @@ namespace Box.Domain.Entities
             SystemName = GetSystemName();
             PhysicalPath = args.PhysicalPath;
             Size = args.Size;
-            UserId = args.UserId;
             UserName = args.Username;
             Provider = "FILE_SYSTEM";
             string workingDirectory = Environment.CurrentDirectory;
-            PhysicalPath = Directory.GetParent(workingDirectory)
-                ?.Parent?.Parent?.FullName ?? string.Empty;
+            PhysicalPath = args.PhysicalPath;
             Url = GetFileUrl();
 
             CheckFileExtentionIsSupported(SupportedExtention);
@@ -95,7 +94,7 @@ namespace Box.Domain.Entities
 
         private string GetFileUrl()
         {
-            return $"storage/{UserName}/{Provider}/{GetSystemName()}";
+            return $"storage/{UserName}/{SystemName}";
         }
 
         public void Share(DateTime dateTime)
@@ -105,10 +104,16 @@ namespace Box.Domain.Entities
 
         public string Download()
         {
-            if (PublicDownloadDateTime < DateTime.Now)
+            if (IsNotPublicDownloadable())
                 throw new NotPublicDownloadableException();
 
-            return GetFileUrl();
+            return $"{PhysicalPath}{SystemName}";
+        }
+
+        private bool IsNotPublicDownloadable()
+        {
+            return PublicDownloadDateTime != DateTime.MinValue &&
+                PublicDownloadDateTime < DateTime.Now;
         }
 
         public void StopShare()
@@ -139,6 +144,15 @@ namespace Box.Domain.Entities
 
             public InvalidFileExtentionException(string name)
                 : base(String.Format("File type is not supported: {0}", name)) { }
+        }
+
+        [Serializable]
+        public class FileNotFoundExtentionException : ApplicationException
+        {
+            public FileNotFoundExtentionException() { }
+
+            public FileNotFoundExtentionException(string name)
+                : base(String.Format("File not found: {0}", name)) { }
         }
     }
 }

@@ -7,7 +7,6 @@ namespace Box.Application.Services
 {
     public class BoundedDataFileService : DataFileService
     {
-
         private readonly DataFileRepository repository;
         public BoundedDataFileService(DataFileRepository repository)
         {
@@ -20,7 +19,11 @@ namespace Box.Application.Services
         }
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            var file = repository.GetById(id);
+            if (file == null)
+                throw new DataFile.FileNotFoundExtentionException(id.ToString());
+
+            repository.Delete(file);
         }
 
         public void Rename(Domain.Entities.DataFile file, string newName)
@@ -33,6 +36,18 @@ namespace Box.Application.Services
             var result =  repository.GetAll(userId);
             var dtos = Convert(result);
             return dtos;
+        }
+
+        public DataFile DownloadFile(string username, string systemName)
+        {
+            var file = repository.GetBySystemName(systemName);
+            if (file == null)
+                throw new DataFile.FileNotFoundExtentionException(systemName);
+
+            if(file.UserName != username)
+                throw new DataFile.FileNotFoundExtentionException(systemName);
+
+            return file;
         }
 
         private List<DataFileDTO> Convert(List<DataFile> files)
@@ -57,11 +72,11 @@ namespace Box.Application.Services
                 Size = file.Size,
                 SystemName = file.SystemName,
                 UpdatedDateTime = file.UpdatedDateTime,
-                Url = file.Url
+                Url = file.Url,
+                Username = file.UserName,
             };
 
             return result;
         }
     }
 }
-

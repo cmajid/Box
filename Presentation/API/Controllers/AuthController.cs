@@ -43,7 +43,7 @@ namespace Box.API.Controllers
         private string CreateToken(User user)
         {
             var key = configuration.GetSection("AppSettings:SecureKey").Value!;
-            var token = HashHelper.CreateToken(key,user.Id, user.Username);
+            var token = HashHelper.CreateToken(key, user.Id, user.Username);
             return token;
         }
     }

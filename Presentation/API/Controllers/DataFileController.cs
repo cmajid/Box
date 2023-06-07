@@ -20,10 +20,17 @@ namespace Box.API.Controllers
         }
 
         [HttpGet()]
-        public ActionResult<List<DataFileDTO>> Get()
+        public ActionResult<List<DataFileDTO>> GetAllFiles()
         {
-            var result = fileService.GetAll(GetUserId());
+            var result = fileService.GetAll(GetCurrentUser_UserId());
             return result;
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult<List<DataFileDTO>> Delete(int id)
+        {
+            fileService.Delete(id);
+            return NoContent();
         }
     }
 }
