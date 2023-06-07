@@ -15,7 +15,14 @@ public class DataFileDoaminTest
         fileName = "temp.jpg";
         userId = 1;
         username = "SLUG";
-        file = DataFile.Create(new DataFileArgs(fileName, userId, username));
+        file = DataFile.Create(new DataFileArgs
+        {
+            Name = fileName,
+            UserId = userId,
+            Size = "200",
+            Username = username,
+            PhysicalPath = "somewhere"
+        });
     }
 
     [Fact]
@@ -34,7 +41,14 @@ public class DataFileDoaminTest
     public void WhenCreateFileWithEmptyName_ShouldException()
     {
         Assert.Throws<DataFile.InvalidFileNameException>(() =>
-            DataFile.Create(new DataFileArgs(string.Empty, userId, username)));
+            DataFile.Create(new DataFileArgs
+            {
+                Name = string.Empty,
+                UserId = userId,
+                Size = "200",
+                Username = username,
+                PhysicalPath = "somewhere"
+            }));
     }
 
     [Fact]
@@ -45,13 +59,20 @@ public class DataFileDoaminTest
 
         // Assert
         Assert.Throws<DataFile.InvalidFileExtentionException>(() =>
-            DataFile.Create(new DataFileArgs(newFile, userId, username)));
+            DataFile.Create(new DataFileArgs
+            {
+                Name = newFile,
+                UserId = userId,
+                Size = "200",
+                Username = username,
+                PhysicalPath = "somewhere"
+            }));
     }
 
     [Fact]
     public void WhenFileIsNotShared_ShouldThrowExceptionOnDownload()
     {
-        Assert.Throws<DataFile.NotPublicDownloadableException>(()=> file.Download());
+        Assert.Throws<DataFile.NotPublicDownloadableException>(()=> file.DownloadFile());
     }
 
     [Fact]
@@ -61,7 +82,7 @@ public class DataFileDoaminTest
         file.Share(DateTime.Now.AddMinutes(-100));
 
         // Assert
-        Assert.Throws<DataFile.NotPublicDownloadableException>(() => file.Download());
+        Assert.Throws<DataFile.NotPublicDownloadableException>(() => file.DownloadFile());
     }
 
     [Fact]
@@ -71,7 +92,7 @@ public class DataFileDoaminTest
         file.StopShare();
 
         // Assert
-        Assert.Throws<DataFile.NotPublicDownloadableException>(() => file.Download());
+        Assert.Throws<DataFile.NotPublicDownloadableException>(() => file.DownloadFile());
     }
 
     [Fact]
@@ -81,15 +102,22 @@ public class DataFileDoaminTest
         file.Share(DateTime.Now.AddMinutes(100));
 
         // Assert
-        var downloadableFile = file.Download();
-        Assert.Equal(downloadableFile, file.Url);
+        var downloadableFile = file.DownloadFile();
+        Assert.Equal(downloadableFile, $"{file.PhysicalPath}{file.SystemName}");
     }
 
     [Fact]
     public void WhenCreateFileWithInvalidName_ShouldException()
     {
         Assert.Throws<DataFile.InvalidFileNameException>(() =>
-            DataFile.Create(new DataFileArgs("temp/.jpg", userId, username)));
+            DataFile.Create(new DataFileArgs
+            {
+                Name = "temp/.jpg",
+                UserId = userId,
+                Size = "200",
+                Username = username,
+                PhysicalPath = "somewhere"
+            }));
     }
 
     [Fact]

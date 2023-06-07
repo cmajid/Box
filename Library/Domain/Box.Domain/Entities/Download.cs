@@ -2,6 +2,7 @@
 {
     public class Download : BaseEntity
     {
+        public int Id { get; private set; }
         public int FileId { get; private set; }
         public DateTime CreateDateTime { get; private set; }
 

@@ -6,8 +6,6 @@ namespace Box.Domain.Entities
 {
     public class DataFile : BaseEntity
     {
-        private readonly string[] SupportedExtention;
-
         public int UserId { get; private set; }
         public string UserName { get; private set; }
 
@@ -23,38 +21,48 @@ namespace Box.Domain.Entities
         public string Url { get; private set; }
         public DateTime PublicDownloadDateTime { get; private set; }
 
+        private int DownloadCount { get; set; }
+
         protected DataFile() {
             
         }
 
         private DataFile(DataFileArgs args)
         {
-            if (string.IsNullOrWhiteSpace(args.Name))
-                throw new InvalidFileNameException(args.Name);
-
-            if (args.Name.Any(f => Path.GetInvalidFileNameChars().Contains(f)))
-                throw new InvalidFileNameException(args.Name);
-
-            UserId = args.UserId;
+            Id = args.Id;
             Name = args.Name;
+            UserId = args.UserId;
             Extention = Path.GetExtension(args.Name);
             CreatedDatetime = DateTime.Now;
             UpdatedDateTime = DateTime.Now;
             SystemName = GetSystemName();
-            PhysicalPath = args.PhysicalPath;
             Size = args.Size;
             UserName = args.Username;
             Provider = "FILE_SYSTEM";
-            string workingDirectory = Environment.CurrentDirectory;
             PhysicalPath = args.PhysicalPath;
             Url = GetFileUrl();
+            DownloadCount = args.DownloadCount;
 
-            CheckFileExtentionIsSupported(SupportedExtention);
+            CheckNameIsFilled(Name);
+            ValidateFileName(Name);
+            CheckFileExtentionIsSupported(Extention);
         }
 
-        private void CheckFileExtentionIsSupported(string[]? SupportedExtention)
+        private static void ValidateFileName(string name)
         {
-            SupportedExtention = new string[]
+            if (name.Any(f => Path.GetInvalidFileNameChars().Contains(f)))
+                throw new InvalidFileNameException(name);
+        }
+
+        private static void CheckNameIsFilled(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                throw new InvalidFileNameException(name);
+        }
+
+        private void CheckFileExtentionIsSupported(string extention)
+        {
+            var SupportedExtention = new string[]
             {
                 ".pdf",
                 ".jpg", ".png", ".jpeg",
@@ -63,14 +71,20 @@ namespace Box.Domain.Entities
                 ".txt"
             };
             if (!SupportedExtention.Contains(Extention))
-                throw new InvalidFileExtentionException(Name);
+                throw new InvalidFileExtentionException(extention);
         }
+
+       
 
         public static DataFile Create(DataFileArgs args)
         {
             return new DataFile(args);
         }
 
+        public int GetDownloadCount()
+        {
+            return DownloadCount;
+        }
         public void Rename(string name)
         {
             var extention = Path.GetExtension(name);
@@ -102,7 +116,7 @@ namespace Box.Domain.Entities
             PublicDownloadDateTime = dateTime;
         }
 
-        public string Download()
+        public string DownloadFile()
         {
             if (IsNotPublicDownloadable())
                 throw new NotPublicDownloadableException();
@@ -110,10 +124,14 @@ namespace Box.Domain.Entities
             return $"{PhysicalPath}{SystemName}";
         }
 
+        public string DownloadByOwner()
+        {
+            return $"{PhysicalPath}{SystemName}";
+        }
+
         private bool IsNotPublicDownloadable()
         {
-            return PublicDownloadDateTime != DateTime.MinValue &&
-                PublicDownloadDateTime < DateTime.Now;
+            return PublicDownloadDateTime < DateTime.Now;
         }
 
         public void StopShare()

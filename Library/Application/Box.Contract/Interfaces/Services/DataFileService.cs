@@ -11,6 +11,7 @@ namespace Box.Contract.Interfaces.Services
         void Rename(DataFile file, string newName);
         List<DataFileDTO> GetAll(int userId);
         DataFile DownloadFile(string username, string systemName);
+        void Share(int id, int timeInMinutes);
     }
 }
 

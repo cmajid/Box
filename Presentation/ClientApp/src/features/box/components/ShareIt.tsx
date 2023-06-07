@@ -29,7 +29,7 @@ const ShareIt = ({file, onSubmit}: Props)=>{
         return onSubmit(currentTime);
     }
     return (
-        <div className="mr-5">
+        <div className="mr-2">
             <form onSubmit={handleSubmit}>
                 <label 
                     htmlFor="times" 
@@ -58,23 +58,26 @@ const ShareIt = ({file, onSubmit}: Props)=>{
                         onChange={(e)=>{
                             setCurrentTime(+e.target.value);
                         }}/>
-                    <p className="text-gray-600 text-xs italic">Make it as long and as crazy as you'd like</p>
+                    <p className="text-gray-600 text-xs italic">Share your world with your friends.</p>
                     </div>
                 </div>
-                <button className="bg-blue-500 shadow-lg hover:bg-blue-100 p-2 rounded text-white">Share It</button>
+                <button className="bg-blue-500 shadow-lg hover:bg-blue-300 p-2 rounded text-white w-full">Share It</button>
                 <hr className="my-4 mr-2"/>
-                <a 
-                    onClick={() => {
-                        navigator.clipboard.writeText(`${BASE_URL}/storage/${file.username}/${file.systemName}`);
-                        toast.success("Share link copied to Clipboard!");
-                    }}
-                    className="cursor-pointer"
-                    >
-                        <FileIcon extention={file.extention}  />
+                <p>
+                <FileIcon extention={file.extention}  />
                         <span className="ml-2">
                             {file.name}     
                         </span>
-                    </a>
+                </p>
+                <p 
+                    onClick={() => {
+                        navigator.clipboard.writeText(`${BASE_URL}/storage/share/${file.username}/${file.systemName}`);
+                        toast.success("Share link copied to Clipboard!");
+                    }}
+                    className="cursor-pointer bg-orange-500 hover:bg-orange-300 w-full p-2 text-center my-2 text-white" 
+                    >
+                        Copy to clipboard!
+                    </p>
             </form>
         </div>
     )

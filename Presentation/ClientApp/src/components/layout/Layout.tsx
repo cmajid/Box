@@ -20,9 +20,6 @@ const Layout = ()=>{
                         <li>
                             <Link to="/">Home</Link>
                         </li>
-                        <li>
-                            <Link to="/box/upload">Upload</Link>
-                        </li>
                         <li className="absolute right-8">
                             <button onClick={logout}>Logout</button>
                         </li>

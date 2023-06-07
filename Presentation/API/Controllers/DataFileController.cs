@@ -32,6 +32,13 @@ namespace Box.API.Controllers
             fileService.Delete(id);
             return NoContent();
         }
+
+        [HttpGet("share/{id}/{time}")]
+        public ActionResult<List<DataFileDTO>> Share(int id, int time)
+        {
+            fileService.Share(id, time);
+            return NoContent();
+        }
     }
 }
 

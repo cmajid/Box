@@ -15,6 +15,7 @@ using Swashbuckle.AspNetCore.Filters;
 
 builder.Services.AddScoped<ApplicationDbContext, ApplicationDbContext>();
 builder.Services.AddScoped<UserRepository, EFUserRepository>();
+builder.Services.AddScoped<DownloadRepository, EFDownloadRepository>();
 builder.Services.AddScoped<UserService, CustomerService>();
 builder.Services.AddScoped<DataFileRepository, EFDataFileRepository>();
 builder.Services.AddScoped<DataFileService, BoundedDataFileService>();

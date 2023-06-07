@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.Data;
 using Box.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
+using System.Reflection.Emit;
 
 namespace Box.Data.EntityFramework
 {
@@ -20,7 +22,6 @@ namespace Box.Data.EntityFramework
                 builder.Property(p => p.UpdatedDateTime).HasColumnType(SqlDbType.DateTime.ToString()).IsRequired();
                 builder.Property(p => p.UserId).IsRequired();
                 builder.Property(p => p.UserName).IsRequired().HasMaxLength(64);
-                builder.HasIndex(p => p.SystemName).IsUnique();
             }
         }
 

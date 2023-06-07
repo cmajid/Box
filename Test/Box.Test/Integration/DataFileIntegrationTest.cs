@@ -21,21 +21,42 @@ public class DataFileIntegrationTest
     private readonly Mock<ApplicationDbContext> dbContextMock;
     private readonly DataFileService service;
     private readonly DataFileRepository repository;
+    private readonly DownloadRepository downloadRepository;
 
     public DataFileIntegrationTest()
     {
         dbContextMock = new Mock<ApplicationDbContext>();
         repository = new EFDataFileRepository(dbContextMock.Object);
-        service = new BoundedDataFileService(repository);
+        downloadRepository = new EFDownloadRepository(dbContextMock.Object);
+        service = new BoundedDataFileService(repository, downloadRepository);
         fileName = "temp.jpg";
         userId = 1;
         username = "SLUG";
         initialFiles = new DataFile[]
         {
-            DataFile.Create(new DataFileArgs("File1.txt", userId, username)),
-            DataFile.Create(new DataFileArgs("File2.jpg", userId, username))
+            DataFile.Create(new DataFileArgs{
+            Name = "File1.jpg",
+            UserId = userId,
+            Size = "200",
+            Username = username,
+            PhysicalPath = "somewhere"
+        }),
+            DataFile.Create(new DataFileArgs{
+            Name = "File2.jpg",
+            UserId = userId,
+            Size = "200",
+            Username = username,
+            PhysicalPath = "somewhere"
+        })
         };
-        file = DataFile.Create(new DataFileArgs(fileName, userId, username));
+        file = DataFile.Create(new DataFileArgs
+        {
+            Name = fileName,
+            UserId = userId,
+            Size = "200",
+            Username = username,
+            PhysicalPath = "somewhere"
+        });
     }
 
     [Fact]

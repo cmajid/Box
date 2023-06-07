@@ -12,6 +12,13 @@ namespace Box.Contract.DTOs
         public DateTime CreatedDatetime { get; set; }
         public DateTime UpdatedDateTime { get; set; }
         public DateTime PublicDownloadDateTime { get; set; }
+        public int DownloadCount { get; set; }
+        public string SharedDescription {
+            get {
+                return (PublicDownloadDateTime == DateTime.MinValue ||
+                    PublicDownloadDateTime < DateTime.Now) ? "Private" : "Shared";
+            }
+        }
         public string Username { get; set; }
     }
 }

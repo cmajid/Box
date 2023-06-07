@@ -14,8 +14,11 @@ export interface DataFile {
     systemName: string;
     createdDatetime: string;
     updatedDateTime: string;
+    sharedDescription: string;
+    downloadCount: number;
 }
-const DATAFILE_URL = '/datafile';
+export const DATAFILE_URL = '/datafile';
+export const STORAGE_URL = '/storage';
 
 const dataFilesAdapter = createEntityAdapter<DataFile>();
 const initialState = dataFilesAdapter.getInitialState();
@@ -36,11 +39,23 @@ export const boxApi = api.injectEndpoints({
                 method: 'DELETE'
             }),
             invalidatesTags: ['DataFiles']
-        })
+        }),
+        shareFile: builder.mutation<void, any>({
+            query: ({id , time}: any)=> ({
+                url: `${DATAFILE_URL}/share/${id}/${time}`,
+                method: 'GET'
+            }),
+            invalidatesTags: ['DataFiles']
+        }),
+        
     })
 })
 
-export const { useGetAllFilesQuery, useDeleteFileMutation } = boxApi;
+export const { 
+    useGetAllFilesQuery, 
+    useDeleteFileMutation, 
+    useShareFileMutation,
+} = boxApi;
 
 export const selectDataFileResult = boxApi.endpoints.getAllFiles.select();
 

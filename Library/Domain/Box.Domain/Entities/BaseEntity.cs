@@ -6,7 +6,7 @@ namespace Box.Domain.Entities
     public class BaseEntity
     {
         [Key]
-        public int Id { get; private set; }
+        public int Id { get; protected set; }
     }
 }
 

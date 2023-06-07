@@ -52,11 +52,26 @@ namespace Box.API.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet("{username}/{systemName}")]
         public ActionResult Download(string username, string systemName)
         {
             var file = fileService.DownloadFile(username, systemName);
-            var path = file.Download();
+            var path = file.DownloadByOwner();
+            if (System.IO.File.Exists(path))
+            {
+                var phisycalFile = File(System.IO.File.OpenRead(path), "application/octet-stream", Path.GetFileName(path));
+                phisycalFile.FileDownloadName = file.Name;
+                return phisycalFile;
+            }
+            return NotFound();
+        }
+
+        [HttpGet("share/{username}/{systemName}")]
+        public ActionResult DownloadShare(string username, string systemName)
+        {
+            var file = fileService.DownloadFile(username, systemName);
+            var path = file.DownloadFile();
             if (System.IO.File.Exists(path))
             {
                 var phisycalFile = File(System.IO.File.OpenRead(path), "application/octet-stream", Path.GetFileName(path));

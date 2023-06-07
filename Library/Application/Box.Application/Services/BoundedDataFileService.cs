@@ -8,9 +8,11 @@ namespace Box.Application.Services
     public class BoundedDataFileService : DataFileService
     {
         private readonly DataFileRepository repository;
-        public BoundedDataFileService(DataFileRepository repository)
+        private readonly DownloadRepository downloadRepository;
+        public BoundedDataFileService(DataFileRepository repository, DownloadRepository downloadRepository)
         {
             this.repository = repository;
+            this.downloadRepository = downloadRepository;
         }
 
         public void Save(Domain.Entities.DataFile file)
@@ -47,7 +49,18 @@ namespace Box.Application.Services
             if(file.UserName != username)
                 throw new DataFile.FileNotFoundExtentionException(systemName);
 
+            downloadRepository.IncreaseDownload(Download.Create(file.Id));
             return file;
+        }
+
+
+        public void Share(int id, int timeInMinutes)
+        {
+            var file = repository.GetById(id);
+            if (file == null)
+                throw new DataFile.FileNotFoundExtentionException(id.ToString());
+
+            repository.Share(file, timeInMinutes);
         }
 
         private List<DataFileDTO> Convert(List<DataFile> files)
@@ -74,9 +87,11 @@ namespace Box.Application.Services
                 UpdatedDateTime = file.UpdatedDateTime,
                 Url = file.Url,
                 Username = file.UserName,
+                DownloadCount = downloadRepository.DownloadCount(file.Id)
             };
 
             return result;
         }
+
     }
 }

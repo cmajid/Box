@@ -10,29 +10,30 @@ const Upload = ()=>{
     const dispatch = useDispatch();
 
     const uploadFile = async (e) => {
-        const formFile = e.target.files[0]
-        const fileName = e.target.files[0].name;
-        const fileExtention: string = fileName.split('.').pop();
-        if(FileTypes.indexOf(fileExtention.toLowerCase()) < 0){
-            toast.error("File type is not supported.")
-            return;
-        }
-        const formData = new FormData();
-        formData.append("formFile", formFile);
-        formData.append("fileName",fileName );
-        try {
-            const config = {
-                headers: { Authorization: `Bearer ${AppStorage.Provider.getItem('token')}` }
-            };
-            await toast.promise(axios.post(`${BASE_URL}/storage`, formData, config), {
-                loading: 'Uploading',
-                success: 'Done!',
-                error: 'File was more than 50Mb!',
-            });
-
-            dispatch(boxApi.util.resetApiState());
-        } catch (ex) {
-            console.log(ex);
+        for(var i=0; i<= e.target.files.length; i++){
+            const formFile = e.target.files[i]
+            const fileName = e.target.files[i].name;
+            const fileExtention: string = fileName.split('.').pop();
+            if(FileTypes.indexOf(fileExtention.toLowerCase()) < 0){
+                toast.error("File type is not supported.")
+                return;
+            }
+            const formData = new FormData();
+            formData.append("formFile", formFile);
+            formData.append("fileName",fileName );
+            try {
+                const config = {
+                    headers: { Authorization: `Bearer ${AppStorage.Provider.getItem('token')}` }
+                };
+                await toast.promise(axios.post(`${BASE_URL}/storage`, formData, config), {
+                    loading: 'Uploading',
+                    success: 'Done!',
+                    error: 'File was more than 50MB!',
+                });
+                dispatch(boxApi.util.resetApiState());
+            } catch (ex) {
+                console.log(ex);
+            }
         }
     };
 
@@ -46,6 +47,7 @@ const Upload = ()=>{
                         <p className="text-xs text-gray-500 dark:text-gray-400">PDF / Excel / Word/ txt/ pictures documents (MAX. 50Mb)</p>
                     </div>
                     <input 
+                        multiple
                         onChange={uploadFile} 
                         id="dropzone-file" 
                         type="file" 

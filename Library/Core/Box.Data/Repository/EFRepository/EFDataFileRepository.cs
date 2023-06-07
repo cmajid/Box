@@ -27,9 +27,20 @@ namespace Box.Data.Repository.EFRepository
             context.SaveChanges();
         }
 
+        public void Share(DataFile file, int timeInMinutes)
+        {
+            file.Share(DateTime.Now.AddMinutes(timeInMinutes));
+            context.Entry(file).State = EntityState.Modified;
+            context.SaveChanges();
+        }
+
         public List<DataFile> GetAll(int userId)
         {
-            return context.DataFile.Where(t => !t.IsDeleted && t.UserId == userId).ToList();
+            var result = context.DataFile
+                .Where(t => !t.IsDeleted && t.UserId == userId)
+                .ToList();
+
+            return result;
         }
 
         public DataFile? GetBySystemName(string systemName)
@@ -42,6 +53,8 @@ namespace Box.Data.Repository.EFRepository
         {
             return context.DataFile.Where(t => !t.IsDeleted && t.Id == id).FirstOrDefault();
         }
+
+        
     }
 }
 

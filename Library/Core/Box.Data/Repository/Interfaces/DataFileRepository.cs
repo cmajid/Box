@@ -10,6 +10,7 @@ namespace Box.Data.Repository.Interfaces
         List<DataFile> GetAll(int userId);
         DataFile? GetBySystemName(string systemName);
         DataFile? GetById(int id);
+        void Share(DataFile file, int timeInMinutes);
     }
 }
 
