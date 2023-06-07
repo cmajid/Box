@@ -1,14 +1,11 @@
-import { FetchBaseQueryError } from "@reduxjs/toolkit/dist/query";
 import { useForm } from "react-hook-form";
-import ErrorHandler from "../../../components/ErrorHandler";
 
 type Props = {
     onSubmit: any;
-    error: FetchBaseQueryError;
     title: string;
     additional?: JSX.Element;
 }
-const UserForm = ({ onSubmit, error, title, additional }: Props)=>{
+const UserForm = ({ onSubmit,  title, additional }: Props)=>{
     const {
         register,
         handleSubmit,
@@ -36,7 +33,6 @@ return (
         <button className="bg-blue-600 hover:bg-blue-dark text-white font-bold py-2 px-4 rounded mb-5">
             {title}
         </button>
-        {error && <ErrorHandler error={error as FetchBaseQueryError}/>}
         {additional && <hr className="mb-5" />}
         {additional}
     </form>
