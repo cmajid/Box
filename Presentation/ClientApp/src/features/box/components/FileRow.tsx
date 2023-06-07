@@ -1,6 +1,6 @@
 import { EntityId } from "@reduxjs/toolkit";
-import { useDispatch, useSelector } from "react-redux";
-import { STORAGE_URL, boxApi, selectDataFileById, useDeleteFileMutation ,useShareFileMutation } from "../boxApi";
+import { useSelector } from "react-redux";
+import { STORAGE_URL, selectDataFileById, useDeleteFileMutation ,useShareFileMutation } from "../boxApi";
 import { RootState } from "../../../store";
 import FileIcon from "./FileIcon";
 import toast from "react-hot-toast";
@@ -12,7 +12,6 @@ type Props = {
     id : EntityId;
 }
 const FileRow = ({ id }: Props)=>{
-    const dispatch = useDispatch();
     const [deleteFile] = useDeleteFileMutation();
     const [share] = useShareFileMutation();
     const file = useSelector((state: RootState)=> selectDataFileById(state, id));
@@ -35,10 +34,8 @@ const FileRow = ({ id }: Props)=>{
                 <div className="w-80">
                     <ShareIt file={file} onSubmit={handleShareSubmit} />
                     <div className="flex border-gray-200">
-                        <a
-                            onClick={() => toast.dismiss(t.id)}
-                            className="cursor-pointer w-full border border-transparent rounded-none rounded-r-lg p-4 flex items-center justify-center text-sm font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                        >
+                        <a  className="cursor-pointer w-full border border-transparent rounded-none rounded-r-lg p-4 flex items-center justify-center text-sm font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            onClick={() => toast.dismiss(t.id)}>
                             Close
                         </a>
                     </div>
@@ -47,7 +44,6 @@ const FileRow = ({ id }: Props)=>{
     }
     const handleDownload = ()=>{
         axiosDownloadFile(`${BASE_URL}${STORAGE_URL}/${file.username}/${file.systemName}`,file.name )
-        dispatch(boxApi.util.resetApiState());
     }
     return (
         <tr className="border-b dark:border-neutral-500">

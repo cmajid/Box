@@ -4,7 +4,7 @@ using Box.Contract.Interfaces.Services;
 using Box.Data.EntityFramework;
 using Box.Data.Repository.EFRepository;
 using Box.Data.Repository.Interfaces;
-using Box.Infrastructure.Security;
+using Box.Application.Helper.Security;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;

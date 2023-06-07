@@ -1,7 +1,7 @@
 ﻿using Box.Contract.Interfaces.Services;
 using Box.Data.Repository.Interfaces;
 using Box.Domain.Entities;
-using Box.Infrastructure.Security;
+using Box.Application.Helper.Security;
 
 namespace Box.Application.Services
 {

@@ -4,7 +4,7 @@ using Box.API.Models;
 using Box.Contract.Interfaces.Services;
 using Box.Domain.Args;
 using Box.Domain.Entities;
-using Box.Infrastructure.Security;
+using Box.Application.Helper.Security;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 

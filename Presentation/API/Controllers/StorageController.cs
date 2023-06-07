@@ -8,7 +8,7 @@ using Box.Domain.Args;
 using Box.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Box.Infrastructure.Files;
+using Box.Application.Helper.Files;
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.StaticFiles;
 

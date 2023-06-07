@@ -2,7 +2,7 @@
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-namespace Box.Infrastructure.Security
+namespace Box.Application.Helper.Security
 {
 	public class CredentialHelper
 	{

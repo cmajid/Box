@@ -37,5 +37,6 @@
     <ProjectReference Include="..\..\Library\Core\Box.Data\Box.Data.csproj" />
     <ProjectReference Include="..\..\Library\Domain\Box.Domain\Box.Domain.csproj" />
     <ProjectReference Include="..\..\Library\Application\Box.Application\Box.Application.csproj" />
+    <ProjectReference Include="..\..\Library\Application\Box.Application\Box.Application.csproj" />
   </ItemGroup>
 </Project>

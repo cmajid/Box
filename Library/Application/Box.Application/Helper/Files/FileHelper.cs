@@ -1,5 +1,5 @@
 ﻿using System;
-namespace Box.Infrastructure.Files
+namespace Box.Application.Helper.Files
 {
 	public static class FileHelper
 	{

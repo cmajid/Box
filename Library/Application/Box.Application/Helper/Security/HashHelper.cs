@@ -5,7 +5,7 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 
 
-namespace Box.Infrastructure.Security
+namespace Box.Application.Helper.Security
 {
 	public class HashHelper
 	{
