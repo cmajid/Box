@@ -13,7 +13,10 @@ namespace Box.Test.Integration;
 public class DataFileIntegrationTest
 {
     private readonly string fileName;
+
     private readonly DataFile file;
+    private readonly int userId;
+    private readonly string username;
     private readonly DataFile[] initialFiles;
     private readonly Mock<ApplicationDbContext> dbContextMock;
     private readonly DataFileService service;
@@ -24,14 +27,15 @@ public class DataFileIntegrationTest
         dbContextMock = new Mock<ApplicationDbContext>();
         repository = new EFDataFileRepository(dbContextMock.Object);
         service = new BoundedDataFileService(repository);
+        fileName = "temp.jpg";
+        userId = 1;
+        username = "SLUG";
         initialFiles = new DataFile[]
         {
-            DataFile.Create(new DataFileArgs("File1.txt")),
-            DataFile.Create(new DataFileArgs("File2.jpg"))
+            DataFile.Create(new DataFileArgs("File1.txt", userId, username)),
+            DataFile.Create(new DataFileArgs("File2.jpg", userId, username))
         };
-        fileName = "temp.jpg";
-
-        file = DataFile.Create(new DataFileArgs(fileName));
+        file = DataFile.Create(new DataFileArgs(fileName, userId, username));
     }
 
     [Fact]

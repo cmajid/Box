@@ -8,6 +8,7 @@ namespace Box.Data.Repository.Interfaces
         void Save(DataFile file);
         void Delete(int id);
         void Update(DataFile file);
+        List<DataFile> GetAll(int userId);
     }
 }
 

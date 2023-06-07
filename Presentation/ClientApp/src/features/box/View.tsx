@@ -8,13 +8,13 @@ const View = ()=>{
     const navigate = useNavigate();
     if(!id){
         navigate("/");
-        return;
+        return (<div>NOT FOUND</div>);
     }
 
     const file = useSelector((state: RootState)=> selectDataFileById(state, +id));
     if(!file){
         navigate("/");
-        return;
+        return (<div>NOT FOUND</div>);
     }
 
     return (<div>{file.name}</div>);

@@ -6,11 +6,13 @@ import Login from "../features/authentication/Login";
 import Home from "../features/home/Home";
 import View from "../features/box/View";
 import Upload from "../features/box/Upload";
+import Register from "../features/authentication/Register";
 
 const AppRoutes = ()=>{
     return (
         <Routes>
             <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
             <Route element={<ProtectedRoutes ><Layout /></ProtectedRoutes>} >
                 <Route element={<Home />} path="/"  />
                 <Route element={<View />} path="/box/view/:id" />

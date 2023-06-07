@@ -1,18 +1,27 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Outlet } from "react-router-dom";
+import { AppStorage } from "../../assets/utilities/storage";
 
 const Layout = ()=>{
 
+    const navigator = useNavigate();
+    const logout = ()=>{
+        AppStorage.Provider.clear();
+        navigator("/login");
+    }
     return (
         <div>
-            <header className="bg-gray-200 p-5 mb-5">
-                <nav>
-                    <ul className="flex gap-5">
+            <header className="bg-gray-200 p-5 mb-5 shadow-xl">
+                <nav className="ml-3">
+                    <ul className="flex gap-10">
                         <li>
                             <Link to="/">Home</Link>
                         </li>
                         <li>
                             <Link to="/box/upload">Upload</Link>
+                        </li>
+                        <li className="absolute right-8">
+                            <button onClick={logout}>Logout</button>
                         </li>
                     </ul>
                 </nav>

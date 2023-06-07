@@ -13,7 +13,7 @@ namespace Box.Domain.Entities
 
         public string Extention { get; private set; }
         public bool IsDeleted { get; private set; }
-        public int Size { get; private set; }
+        public string Size { get; private set; }
         public string Name { get; private set; }
         public string SystemName { get; private set; }
         public DateTime CreatedDatetime { get; private set; }
@@ -40,9 +40,10 @@ namespace Box.Domain.Entities
             CreatedDatetime = DateTime.Now;
             UpdatedDateTime = DateTime.Now;
             SystemName = GetSystemName();
-            PhysicalPath = "";
-            UserId = 1;
-            UserName = "slug";
+            PhysicalPath = args.PhysicalPath;
+            Size = args.Size;
+            UserId = args.UserId;
+            UserName = args.Username;
             Provider = "FILE_SYSTEM";
             string workingDirectory = Environment.CurrentDirectory;
             PhysicalPath = Directory.GetParent(workingDirectory)
@@ -116,7 +117,7 @@ namespace Box.Domain.Entities
         }
 
         [Serializable]
-        public class InvalidFileNameException : Exception
+        public class InvalidFileNameException : ApplicationException
         {
             public InvalidFileNameException() { }
 
@@ -125,14 +126,14 @@ namespace Box.Domain.Entities
         }
 
         [Serializable]
-        public class NotPublicDownloadableException : Exception
+        public class NotPublicDownloadableException : ApplicationException
         {
             public NotPublicDownloadableException()
                 : base(String.Format("File is not public")) {}
         }
 
         [Serializable]
-        public class InvalidFileExtentionException : Exception
+        public class InvalidFileExtentionException : ApplicationException
         {
             public InvalidFileExtentionException() { }
 

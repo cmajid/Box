@@ -24,10 +24,12 @@ namespace Box.Infrastructure.Security
             return verify;
         }
 
-        public static string CreateToken(string key, string username)
+        public static string CreateToken(string key, int userId, string username)
         {
             List<Claim> claims = new List<Claim> {
-                new Claim(ClaimTypes.Name, username)};
+                new Claim(ClaimTypes.Name, username),
+                new Claim(ClaimTypes.NameIdentifier, userId.ToString())
+           };
             var credentials = CredentialHelper.CreateCredential(key);
             var jwt = CreateTokenWithCredential(claims, credentials);
             return jwt;

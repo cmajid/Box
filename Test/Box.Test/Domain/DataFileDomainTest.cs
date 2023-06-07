@@ -6,12 +6,16 @@ namespace Box.Test.Domain;
 public class DataFileDoaminTest
 {
     private readonly string fileName;
+    private readonly int userId;
+    private readonly string username;
     private readonly DataFile file;
 
     public DataFileDoaminTest()
     {
         fileName = "temp.jpg";
-        file = DataFile.Create(new DataFileArgs(fileName));
+        userId = 1;
+        username = "SLUG";
+        file = DataFile.Create(new DataFileArgs(fileName, userId, username));
     }
 
     [Fact]
@@ -30,7 +34,7 @@ public class DataFileDoaminTest
     public void WhenCreateFileWithEmptyName_ShouldException()
     {
         Assert.Throws<DataFile.InvalidFileNameException>(() =>
-            DataFile.Create(new DataFileArgs(string.Empty)));
+            DataFile.Create(new DataFileArgs(string.Empty, userId, username)));
     }
 
     [Fact]
@@ -41,7 +45,7 @@ public class DataFileDoaminTest
 
         // Assert
         Assert.Throws<DataFile.InvalidFileExtentionException>(() =>
-            DataFile.Create(new DataFileArgs(newFile)));
+            DataFile.Create(new DataFileArgs(newFile, userId, username)));
     }
 
     [Fact]
@@ -85,7 +89,7 @@ public class DataFileDoaminTest
     public void WhenCreateFileWithInvalidName_ShouldException()
     {
         Assert.Throws<DataFile.InvalidFileNameException>(() =>
-            DataFile.Create(new DataFileArgs("temp/.jpg")));
+            DataFile.Create(new DataFileArgs("temp/.jpg", userId, username)));
     }
 
     [Fact]

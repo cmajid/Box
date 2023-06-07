@@ -14,12 +14,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddScoped<ApplicationDbContext, ApplicationDbContext>();
-
 builder.Services.AddScoped<UserRepository, EFUserRepository>();
 builder.Services.AddScoped<UserService, CustomerService>();
-
 builder.Services.AddScoped<DataFileRepository, EFDataFileRepository>();
 builder.Services.AddScoped<DataFileService, BoundedDataFileService>();
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

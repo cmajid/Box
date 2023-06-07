@@ -1,4 +1,5 @@
 ﻿using System;
+using Box.Contract.DTOs;
 using Box.Domain.Entities;
 
 namespace Box.Contract.Interfaces.Services
@@ -8,6 +9,7 @@ namespace Box.Contract.Interfaces.Services
         void Save(DataFile file);
         void Delete(int id);
         void Rename(DataFile file, string newName);
+        List<DataFileDTO> GetAll(int userId);
     }
 }
 

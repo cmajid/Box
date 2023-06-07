@@ -1,5 +1,4 @@
 import { EntityId } from "@reduxjs/toolkit";
-import { ImFilePdf } from "react-icons/im";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { selectDataFileById, useDeleteFileMutation } from "../boxApi";
@@ -21,19 +20,16 @@ const FileRow = ({ id }: Props)=>{
     }
     return (
         <tr className="border-b dark:border-neutral-500">
-            <td className="whitespace-nowrap w-2 px-6  py-4">
-                <input type="checkbox" name="select" />
-            </td>
             <td className="whitespace-nowrap px-6 py-4 text-left">
                 <FileIcon extention={file.extention} />
                 <span className="ml-2">{file?.name}</span>
             </td>
             <td className="whitespace-nowrap px-6 py-4">{new Date(file.createdDatetime).toLocaleString()}</td>
             <td className="whitespace-nowrap px-6 py-4">{file?.size}Kb</td>
-            <td className="whitespace-nowrap px-6 py-4">
-                <Link to={`/box/view/${file.id}`} className="bg-blue-500 p-3 text-white">View</Link>
-                <Link to="/" className="bg-green-500 p-3 ml-1 text-white">Download</Link>
-                <button onClick={handleDelete} className="bg-orange-500 p-3 ml-1 text-white">Delete</button>
+            <td className="whitespace-nowrap px-6 py-4 text-right">
+                <Link to={`/box/view/${file.id}`} className="bg-blue-500 p-3 text-white rounded"> Share</Link>
+                <Link to="/" className="bg-green-500 p-3 ml-1 text-white rounded">Download</Link>
+                <a onClick={handleDelete} className="bg-orange-500 p-3 ml-1 text-white rounded cursor-pointer">Delete</a>
             </td>
         </tr>
     )

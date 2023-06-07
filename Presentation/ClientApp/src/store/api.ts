@@ -1,7 +1,7 @@
 import { BaseQueryFn, FetchArgs, FetchBaseQueryError, createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { AppStorage } from '../assets/utilities/storage';
 
-const BASE_URL = 'https://localhost:5000';
+export const BASE_URL = 'https://localhost:5000';
 
 const baseQuery = fetchBaseQuery({
     baseUrl: BASE_URL,
@@ -24,7 +24,10 @@ const appFetchBaseQuery: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQuery
         return result;
    
     if(result.error.status === 500)
-        alert("ERROR")
+        console.log("SERVER_ERROR", result.error);
+
+    if(result.error.status === 401)
+        window.location = "/login";
 
     return result;
 }

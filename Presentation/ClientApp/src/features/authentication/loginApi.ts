@@ -10,13 +10,13 @@ export interface LoginResponse {
     token: string;
 }
 
-const LOGIN_URL = '/login';
+const LOGIN_URL = '/auth';
 
 export const loginApi = api.injectEndpoints({
     endpoints: (builder) => ({
         login: builder.mutation<LoginResponse, Login>({
             query: (data: Login) => ({
-                url: LOGIN_URL,
+                url: `${LOGIN_URL}/login`,
                 method: 'POST',
                 body: data
             }),
@@ -27,8 +27,15 @@ export const loginApi = api.injectEndpoints({
                 } catch (error) {
                 }
             }
+        }),
+        register: builder.mutation<void, Login>({
+            query: (data: Login) => ({
+                url: `${LOGIN_URL}/register`,
+                method: 'POST',
+                body: data
+            })
         })
     })
 })
 
-export const { useLoginMutation } = loginApi;
+export const { useLoginMutation, useRegisterMutation } = loginApi;

@@ -1,4 +1,5 @@
-﻿using Box.Data.EntityFramework;
+﻿using System.Linq;
+using Box.Data.EntityFramework;
 using Box.Data.Repository.Interfaces;
 using Box.Domain.Entities;
 
@@ -27,6 +28,11 @@ namespace Box.Data.Repository.EFRepository
         public void Update(DataFile file)
         {
             throw new NotImplementedException();
+        }
+
+        public List<DataFile> GetAll(int userId)
+        {
+            return context.DataFile.Where(t => !t.IsDeleted && t.UserId == userId).ToList();
         }
     }
 }

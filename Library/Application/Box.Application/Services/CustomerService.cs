@@ -22,6 +22,9 @@ namespace Box.Application.Services
         public User VerifyUser(string username, string password)
         {
             var user = GetUserByUsername(username);
+            if (user == null)
+                throw new UsernameOrPasswordNotFoundException(username);
+
             VerifyPassword(username, password, user);
             return user;
         }
@@ -51,7 +54,7 @@ namespace Box.Application.Services
         }
 
         [Serializable]
-        public class UsernameRepeatedException : Exception
+        public class UsernameRepeatedException : ApplicationException
         {
             public UsernameRepeatedException() { }
 
@@ -60,7 +63,7 @@ namespace Box.Application.Services
         }
 
         [Serializable]
-        public class UserNotFoundException : Exception
+        public class UserNotFoundException : ApplicationException
         {
             public UserNotFoundException() { }
 
@@ -69,7 +72,7 @@ namespace Box.Application.Services
         }
 
         [Serializable]
-        public class UsernameOrPasswordNotFoundException : Exception
+        public class UsernameOrPasswordNotFoundException : ApplicationException
         {
             public UsernameOrPasswordNotFoundException() { }
 
