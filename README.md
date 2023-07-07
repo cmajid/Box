@@ -1,20 +1,6 @@
 # Box
-The application is a document library intended to give its users a web based solution to store and share their documents with others.
-
-### BOX
-**Functional Requirements**
-- Design and implement the application’s UI / API based on the requirements:
--- available document types for uploading 
---- PDF / Excel / Word/ txt/ pictures documents
---- display / get a list of available documents
---- name of the document
---- icon based on its type
---- a preview image of its content 1st page content
---- date and time of upload
---- number of downloads
-- download / upload a document
-- download / upload several documents
-- a document can be shared with other users via a generated link which is publicly available for the specified time period (e.g.: 1 hour, 1 day, etc.)
+You can upload your file and share it with everyone. 
+This is an application using .Net7 and react.js using RTK Query.
 
 
 **Backend**
@@ -35,17 +21,17 @@ The application is a document library intended to give its users a web based sol
 
 
 **Frontend**
-- Libaray
+- Library
 -- react 18.2.0
 ---- react-router-dom 5.x
 
-- State Managment
+- State Management
 -- Reduxt-Toolkit
 ---- RTK-Query (normalized state structure)
 
 - Tools
 -- Vite
--- axios
+-- Axios
 -- react-hook-form
 -- react-icons
 -- react-hot-toast
