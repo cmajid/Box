@@ -14,7 +14,7 @@ const ShareIt = ({file, onSubmit}: Props)=>{
     const changeTimeUnit = (newTimeUnit: string) => {
         setCurrentTimeUnit(newTimeUnit)
     }
-    const handleSubmit = (event)=>{
+    const handleSubmit = (event: any)=>{
         event.preventDefault();
         switch(currentTimeUnit){
             case 'hours':{

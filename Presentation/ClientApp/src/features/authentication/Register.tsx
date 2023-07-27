@@ -1,6 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
 import UserForm from "./components/UserForm";
-import { FetchBaseQueryError } from "@reduxjs/toolkit/dist/query";
 import { useRegisterMutation } from "./loginApi";
 import toast from "react-hot-toast";
 

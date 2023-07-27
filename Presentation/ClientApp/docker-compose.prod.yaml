@@ -1,0 +1,11 @@
+version: "1.0"
+
+services:
+  app:
+    container_name: box-prod-app
+    image: box-prod
+    build:
+      context: .
+      target: production
+    ports:
+      - 3000:80

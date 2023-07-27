@@ -6,7 +6,7 @@ import { EntityId } from "@reduxjs/toolkit";
 import Upload from "./Upload";
 
 const Box = ()=> {
-    const { data : files, isLoading, isError , error } = useGetAllFilesQuery();
+    const { data : files, isError , error } = useGetAllFilesQuery();
     if(isError)
       return (<ErrorHandler error={error as FetchBaseQueryError} />)
 

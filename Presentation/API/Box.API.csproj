@@ -27,6 +27,7 @@
     <Folder Include="Controllers\" />
     <Folder Include="Models\" />
     <Folder Include="Middleware\" />
+    <Folder Include="wwwroot\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Library\Application\Box.Application\Box.Application.csproj">

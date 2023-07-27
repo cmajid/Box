@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 const Upload = ()=>{
     const dispatch = useDispatch();
 
-    const uploadFile = async (e) => {
+    const uploadFile = async (e: any) => {
         for(var i=0; i<= e.target.files.length; i++){
             const formFile = e.target.files[i]
             const fileName = e.target.files[i].name;

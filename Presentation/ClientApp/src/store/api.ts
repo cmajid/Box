@@ -1,6 +1,5 @@
 import { BaseQueryFn, FetchArgs, FetchBaseQueryError, createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { AppStorage } from '../assets/utilities/storage';
-import { toast } from 'react-hot-toast';
 
 export const BASE_URL = 'https://localhost:5000';
 
@@ -28,12 +27,8 @@ const appFetchBaseQuery: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQuery
         console.log("SERVER_ERROR", result.error);
 
     if(result.error.status === 401)
-        window.location = "/login";
-
-    const messages = result?.error?.data?.Messages;
-    for(var mess in messages){
-        toast.error(messages[mess]);
-    }
+        window.location.replace("/login");
+    
     return result;
 }
 

@@ -7,6 +7,7 @@ import Home from "../features/home/Home";
 import View from "../features/box/View";
 import Upload from "../features/box/Upload";
 import Register from "../features/authentication/Register";
+import User from "../features/user/User.tsx";
 
 const AppRoutes = ()=>{
     return (
@@ -17,6 +18,7 @@ const AppRoutes = ()=>{
                 <Route element={<Home />} path="/"  />
                 <Route element={<View />} path="/box/view/:id" />
                 <Route element={<Upload />} path="/box/upload" />
+                <Route element={<User />} path="/user" />
             </Route>
             <Route path="*" element={<NotFound />} />
         </Routes>
